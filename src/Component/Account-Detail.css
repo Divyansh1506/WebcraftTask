@@ -1,0 +1,31 @@
+.profile-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid red;
+    object-fit: cover;
+}
+
+.camera-icon {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-radius: 100%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.camera-icon i {
+    color: #333;
+}
