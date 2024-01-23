@@ -1,12 +1,40 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth, provider } from './firebase-config';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
 import IndoreImage from '../assests/imgs/Group-33622.png'
 import google from '../assests/imgs/google.png'
 import fb from '../assests/imgs/fb.png'
 import apple from '../assests/imgs/apple.png'
 
+
+
 const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      console.log('Current User:', currentUser);
+      setUser(currentUser);
+    });
+  }, []);
+  
+
+  const handleLogin = () => {
+    if (!user) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          navigate('/profile');
+        }).catch((error) => {
+          console.error("Authentication Error: ", error);
+        });
+    }
+  };
 
   const handleChange = (e) => {
     setPhoneNumber(e.target.value);
@@ -32,7 +60,7 @@ const SignIn = () => {
 
         <p className='my-2'>OR</p>
 
-        <button className='px-5 fw-semibold text-start bg-white p-2 border-secondary border-1 rounded-3 text-black'>
+        <button onClick={handleLogin} className='px-5 fw-semibold text-start bg-white p-2 border-secondary border-1 rounded-3 text-black'>
           <img style={{height:"25px"}} className='px-2'  src={google} alt="" />
           Login with Google</button>
 

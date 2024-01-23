@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import './Account-Detail.css';
 import 'remixicon/fonts/remixicon.css'
+import { auth } from './firebase-config';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
+    const navigate = useNavigate();
+
     const [profile, setProfile] = useState({
         name: '',
         mobileNo: '',
@@ -17,9 +22,19 @@ const ProfilePage = () => {
         }
     };
 
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+          navigate('/signin');
+        }).catch((error) => {
+          console.error("Logout Error: ", error);
+        });
+      };
+    
     return (
         <div style={{ height: "100vh" }} className="text-center  mx-3 my-3">
             <h5 className="title mb-5 fw-semibold">My Profile</h5>
+            <button style={{position:'absolute', top:25, right:10}} onClick={handleLogout}>Sample Logout</button>
             <div className="row justify-content-center">
                 <form style={{ height: "90vh", position: 'relative' }} className='d-flex align-content-end flex-column '>
                     <div className="form-group text-center">

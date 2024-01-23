@@ -5,11 +5,13 @@ import Onboarding from './Component/Onboarding';
 import SignIn from './Component/SignIn';
 import Verification from './Component/Verification';
 import Profile from './Component/Account-Detail';
+// import Login from './Component/Login';
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Splash />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/signin" element={<SignIn />} />
